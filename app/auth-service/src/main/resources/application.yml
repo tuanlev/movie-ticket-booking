@@ -19,13 +19,13 @@ spring:
       port: 9091
 
 
-  jwt:
-    access:
-      key: tuandeptraiiuadysfhashdfkahsdfkjhasjdfhkjasdhdf
-      expiration: 43200000
-    refresh:
-      key: tuandeptraiiuadysfhashdfkahsdfkjhasjdfhkjasdhdf
-      expiration: 1296000000
-    rotation:
-      key: tuandeptraiiuadysfhashdfkahsdfkjhasjdfhkjasdhdf
-      expiration: 43200000
+jwt:
+  access:
+    key: tuandeptraiiuadysfhashdfkahsdfkjhasjdfhkjasdhdf
+    expiration: 2
+  refresh:
+    key: tuandeptraiiuadysfhashdfkahsdfkjhasjdfhkjasdhdf
+    expiration: 1296000000
+  rotation:
+    key: tuandeptraiiuadysfhashdfkahsdfkjhasjdfhkjasdhdf
+    expiration: 43200000

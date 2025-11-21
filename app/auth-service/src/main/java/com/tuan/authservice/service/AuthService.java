@@ -9,6 +9,8 @@ import com.tuan.authservice.exceptionhandler.builtin_exception.UsernameNotFoundE
 import com.tuan.authservice.model.User;
 import com.tuan.authservice.repository.UserRepository;
 import com.tuan.authservice.response.ApiResponse;
+import io.jsonwebtoken.JwtException;
+import org.antlr.v4.runtime.Token;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -21,10 +23,14 @@ import java.util.Optional;
 public class AuthService {
     UserRepository userRepository;
     PasswordEncoder passwordEncoder;
+    JwtService jwtService;
     @Autowired
-    public void setAccountRepository(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public void setAccountRepository(UserRepository userRepository,
+                                     PasswordEncoder passwordEncoder,
+                                     JwtService jwtService) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.jwtService = jwtService;
     }
     //Need to provide jwt
     public ApiResponse login(LoginDTO loginDTO){
@@ -33,8 +39,13 @@ public class AuthService {
         if (passwordEncoder
                 .matches(loginDTO.getPassword(), userOptional.get().getPassword()))
             throw new InvalidCredentialsException();
+        String token = jwtService.generateAccessToken(userOptional.get());
+        String refToken = jwtService.generateRefreshToken(userOptional.get());
         return ApiResponse.builder()
-                .data(Map.of("user",userOptional.get()))
+                .data(Map.of("user",userOptional.get() ,
+                        "access-token", token,
+                        "refresh-token",refToken
+                        ))
                 .status(HttpStatus.OK.value())
                 .success(true)
                 .message("login successfully")
@@ -78,4 +89,19 @@ public class AuthService {
 
     }
 
+
+    public ApiResponse refresh(String refreshToken){
+        User userVerified = jwtService.verifyRefreshToken(refreshToken);
+        String accessToken = jwtService.generateAccessToken(userVerified);
+        return ApiResponse.builder()
+                .data(Map.of("user",userVerified ,
+                        "access-token", accessToken,
+                        "refresh-token",refreshToken
+                ))
+                .status(HttpStatus.OK.value())
+                .success(true)
+                .message("refresh successfully")
+                .build();
+
+    }
 }

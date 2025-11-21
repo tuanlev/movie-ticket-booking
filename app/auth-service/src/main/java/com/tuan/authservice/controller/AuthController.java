@@ -11,12 +11,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
     AuthService authService;
     @Autowired
-    public void setAuthService(AuthService authService) {
+    public void setDependenciesS(AuthService authService) {
         this.authService = authService;
     }
     @PostMapping("/register")
@@ -32,9 +34,12 @@ public class AuthController {
                 .getStatus()).body(response);
     }
 
-    @PostMapping("/")
-    public String getUser(@RequestBody String email) {
-        return "hello" + email;
+    @GetMapping("/refresh-token")
+    public ResponseEntity<?> refreshToken(@RequestHeader(value = "refresh-token", required = false) String refreshToken ) {
+        ApiResponse response = authService.refresh(refreshToken);
+        return ResponseEntity.status(response
+                .getStatus()).body(response);
     }
 
 }
+
