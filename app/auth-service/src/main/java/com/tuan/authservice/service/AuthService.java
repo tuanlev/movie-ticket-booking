@@ -18,7 +18,7 @@ import java.util.Map;
 import java.util.Optional;
 
 @Service
-public class UserService {
+public class AuthService {
     UserRepository userRepository;
     PasswordEncoder passwordEncoder;
     @Autowired
@@ -37,7 +37,7 @@ public class UserService {
                 .data(Map.of("user",userOptional.get()))
                 .status(HttpStatus.OK.value())
                 .success(true)
-                .message("Account created successfully")
+                .message("login successfully")
                 .build();
     }
 

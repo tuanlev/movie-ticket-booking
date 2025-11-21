@@ -55,6 +55,17 @@
             <artifactId>grpc-server-spring-boot-starter</artifactId>
             <version>3.1.0.RELEASE</version>
         </dependency>
+        <dependency>
+            <groupId>com.google.protobuf</groupId>
+            <artifactId>protobuf-java</artifactId>
+            <version>4.32.1</version>
+        </dependency>
+        <dependency>
+            <groupId>io.grpc</groupId>
+            <artifactId>grpc-netty-shaded</artifactId>
+            <version>1.76.0</version>
+        </dependency>
+        <!-- use net.devh instead of default -->
 
         <dependency>
             <groupId>org.springframework.boot</groupId>

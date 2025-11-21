@@ -10,7 +10,7 @@ import lombok.Data;
 public class RegisterDTO {
     @NotBlank(message = "username required")
     String username;
-    @Email(message = "invalid ")
+    @Email(message = "invalid")
     String gmail;
     @Pattern(regexp = "^0\\d{9}$", message = "Invalid phone number")
     String phoneNumber;
