@@ -2,6 +2,9 @@ package com.tuan.authservice.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
+import com.tuan.authservice.model.role.Role;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -10,6 +13,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @Entity
 @Data
@@ -35,6 +41,7 @@ public class User {
     @JsonIgnore
     String password;
     String fullName;
-    @Builder.Default()
-    Role role = Role.user;
+    Role role = Role.USER;
+    @Builder.Default
+    Timestamp created = new Timestamp(System.currentTimeMillis());
 }

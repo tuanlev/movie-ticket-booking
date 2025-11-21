@@ -1,6 +1,6 @@
 package com.tuan.authservice.dto;
 
-import com.tuan.authservice.model.Role;
+import com.tuan.authservice.model.role.Role;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;

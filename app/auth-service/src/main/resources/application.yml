@@ -22,10 +22,13 @@ spring:
 jwt:
   access:
     key: tuandeptraiiuadysfhashdfkahsdfkjhasjdfhkjasdhdf
-    expiration: 2
+    expiration: 43200000
   refresh:
     key: tuandeptraiiuadysfhashdfkahsdfkjhasjdfhkjasdhdf
     expiration: 1296000000
   rotation:
     key: tuandeptraiiuadysfhashdfkahsdfkjhasjdfhkjasdhdf
     expiration: 43200000
+grpc:
+  server:
+    port: 9090

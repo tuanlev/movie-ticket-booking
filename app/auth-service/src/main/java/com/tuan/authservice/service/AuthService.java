@@ -2,15 +2,15 @@ package com.tuan.authservice.service;
 
 import com.tuan.authservice.dto.LoginDTO;
 import com.tuan.authservice.dto.RegisterDTO;
+import com.tuan.authservice.dto.UserVerify;
 import com.tuan.authservice.exceptionhandler.builtin_exception.InvalidCredentialsException;
 import com.tuan.authservice.exceptionhandler.builtin_exception.UniqueColumnAlreadyExistsException;
 import com.tuan.authservice.exceptionhandler.builtin_exception.UserAlreadyExistsException;
 import com.tuan.authservice.exceptionhandler.builtin_exception.UsernameNotFoundException;
+import com.tuan.authservice.model.role.Role;
 import com.tuan.authservice.model.User;
 import com.tuan.authservice.repository.UserRepository;
 import com.tuan.authservice.response.ApiResponse;
-import io.jsonwebtoken.JwtException;
-import org.antlr.v4.runtime.Token;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -76,7 +76,7 @@ public class AuthService {
                         .gmail(registerDTO.getGmail())
                         .phoneNumber(registerDTO.getPhoneNumber())
                         .fullName(registerDTO.getFullName())
-                        .role(registerDTO.getRole())
+                        .role((registerDTO.getRole()==null)? Role.USER: registerDTO.getRole())
                 .build()
         );
 
@@ -91,7 +91,7 @@ public class AuthService {
 
     //basic done
     public ApiResponse refresh(String refreshToken){
-        User userVerified = jwtService.verifyRefreshToken(refreshToken);
+        UserVerify userVerified = jwtService.verifyRefreshToken(refreshToken);
         String accessToken = jwtService.generateAccessToken(userVerified);
         return ApiResponse.builder()
                 .data(Map.of("user",userVerified ,
