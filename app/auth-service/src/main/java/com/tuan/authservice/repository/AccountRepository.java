@@ -9,5 +9,4 @@ import java.util.Optional;
 @Repository
 public interface AccountRepository extends JpaRepository<Account,String> {
     Optional<Account> findDistinctByGmail(String s);
-    Optional<Account> check(String s);
 }
