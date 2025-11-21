@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,15 +14,19 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "accounts")
-public class Account {
+@Table(name = "users")
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     String id;
+    @NotBlank(message = "username required")
+    @Column(unique = true)
+    String username;
+    @Column(unique = true)
     @Email(message = "invalid ")
-    @NotBlank(message = "")
     String gmail;
     @Pattern(regexp = "^0\\d{9}$", message = "Invalid phone number")
+    @Column(unique = true)
     String phoneNumber;
     @NotBlank(message = "Password required")
     String password;
