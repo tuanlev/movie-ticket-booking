@@ -32,7 +32,7 @@ public class AuthService {
         this.passwordEncoder = passwordEncoder;
         this.jwtService = jwtService;
     }
-    //Need to provide jwt
+    //done
     public ApiResponse login(LoginDTO loginDTO){
         Optional<User> userOptional = userRepository.findDistinctByUsername(loginDTO.getUsername());
         if (userOptional.isEmpty()) throw new UsernameNotFoundException();
@@ -51,7 +51,7 @@ public class AuthService {
                 .message("login successfully")
                 .build();
     }
-
+    //basic done
     public ApiResponse createUser(RegisterDTO registerDTO){
         // check username
         {
@@ -89,7 +89,7 @@ public class AuthService {
 
     }
 
-
+    //basic done
     public ApiResponse refresh(String refreshToken){
         User userVerified = jwtService.verifyRefreshToken(refreshToken);
         String accessToken = jwtService.generateAccessToken(userVerified);
