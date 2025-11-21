@@ -1,5 +1,7 @@
 package com.tuan.authservice.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -15,6 +17,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "users")
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -29,6 +32,7 @@ public class User {
     @Column(unique = true)
     String phoneNumber;
     @NotBlank(message = "Password required")
+    @JsonIgnore
     String password;
     String fullName;
     @Builder.Default()
