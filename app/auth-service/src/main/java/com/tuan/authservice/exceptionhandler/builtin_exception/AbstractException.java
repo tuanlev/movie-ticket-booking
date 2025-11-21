@@ -1,4 +1,4 @@
-package com.tuan.authservice.exception;
+package com.tuan.authservice.exceptionhandler.builtin_exception;
 
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
